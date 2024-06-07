@@ -1,26 +1,21 @@
 #ifndef CACHE_H
 #define CACHE_H
 
+#include <vector>
 using namespace std;
 
-class CampoCache{
+class BloqueCache{
 
     private:
-        bool validez = false;
-        int indice;
-        int etiqueta;
+        bool acierto = false;
+        int etiqueta = -1;
         int palabra;
+        int cacheCont = -1;
 
     public:
 
-        void setValidez(bool valor){
-            validez = valor;
-            return;
-        }
-
-        void setIndex(int valor)
-        {
-            indice = valor;
+        void setAcierto(bool valor){
+            acierto = valor;
             return;
         }
 
@@ -34,12 +29,13 @@ class CampoCache{
             return;
         }
 
-        bool getValidez(){
-            return validez;
+        void setCont(int valor){
+            cacheCont = valor;
+            return;
         }
 
-        int getIndex(){
-            return indice;
+        bool getAcierto(){
+            return acierto;
         }
 
         int getEtiqueta(){
@@ -50,6 +46,9 @@ class CampoCache{
             return palabra;
         }
 
-};
+        int getCont(){
+            return cacheCont;
+        }
 
+};
 #endif
