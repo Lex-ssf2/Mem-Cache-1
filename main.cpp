@@ -11,11 +11,12 @@ string convertBinary(unsigned int num);
 void printCDirecta();
 void correspondenciaDirecta(int cantPalabras,int tamanoBloque);
 void asociativaConjuntos(int cantPalabras,int tamanoBloque,int vias);
+void asociativaFull(int tamano);
 
 int main(int argc, const char* argv[])
 {
     int a;
-    asociativaConjuntos(1,1,3);
+    asociativaFull(1);
     cout << "sonic";
     return 0;
 }
@@ -36,7 +37,7 @@ void correspondenciaDirecta(int cantPalabras,int tamanoBloque){
 
     while(cin >> entrada){
         //Calculos
-        int etiqueta = entrada >> offsetBit;
+        int etiqueta = entrada >> offsetBit + offsetPalabra;
         int indice =  (entrada >> offsetPalabra) % tamanoBloque;
         int palabra = entrada % cantPalabras;
 
@@ -77,7 +78,7 @@ void asociativaConjuntos(int cantPalabras,int tamanoBloque,int vias){
 
     while(cin >> entrada){
         //Calculos
-        int etiqueta = entrada >> offsetBit;
+        int etiqueta = entrada >> offsetBit + offsetPalabra;
         int indice =  (entrada >> offsetPalabra) % tamanoBloque;
         int palabra = entrada % cantPalabras;
 
@@ -115,6 +116,39 @@ void asociativaConjuntos(int cantPalabras,int tamanoBloque,int vias){
             listaCacheVias[indice][tmpIndex].setCont(contador);
             HM += "M, ";    
         }    
+    };
+    cout << BinAdrss << '\n' << Etiqueta << '\n' << Indice << '\n' << Word << '\n' << HM << endl;
+}
+
+
+void asociativaFull(int tamano){
+    vector<BloqueCache> listaCache(tamano, BloqueCache());
+    int entrada;
+    cout << "Completamente asociativa: \n";
+    string BinAdrss,Etiqueta,Indice,HM,Word;
+    BinAdrss = "Binary Adress: ";
+    Etiqueta = "Etiquetas: ";
+    Indice = "Indice: ";
+    HM = "Hit/Miss: ";
+    Word = "Palabra: ";
+
+    while(cin >> entrada){
+
+        BinAdrss += convertBinary(entrada) + ", ";
+        if(listaCache.size() < BinAdrss.size())
+        {
+            listaCache.resize(BinAdrss.size() + 1);
+        }
+        if(listaCache[entrada].getEtiqueta() != entrada)
+        {
+            listaCache[entrada].setEtiqueta(entrada);
+            listaCache[entrada].setAcierto(false);
+            HM += "M, ";
+        }
+        else{
+            listaCache[entrada].setAcierto(true);
+            HM += "H, ";
+        }   
     };
     cout << BinAdrss << '\n' << Etiqueta << '\n' << Indice << '\n' << Word << '\n' << HM << endl;
 }
