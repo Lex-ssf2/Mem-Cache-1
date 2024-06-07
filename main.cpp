@@ -10,11 +10,12 @@ using namespace std;
 string convertBinary(unsigned int num);
 void printCDirecta();
 void correspondenciaDirecta(int cantPalabras,int tamanoBloque);
+void asociativaConjuntos(int cantPalabras,int tamanoBloque,int vias);
 
 int main(int argc, const char* argv[])
 {
     int a;
-    correspondenciaDirecta(4,2);
+    asociativaConjuntos(1,1,3);
     cout << "sonic";
     return 0;
 }
@@ -56,6 +57,64 @@ void correspondenciaDirecta(int cantPalabras,int tamanoBloque){
             listaCache[indice].setPalabra(palabra);
             HM += "H, ";
         }
+    };
+    cout << BinAdrss << '\n' << Etiqueta << '\n' << Indice << '\n' << Word << '\n' << HM << endl;
+}
+
+void asociativaConjuntos(int cantPalabras,int tamanoBloque,int vias){
+    vector<vector<BloqueCache>> listaCacheVias(cantPalabras * tamanoBloque, vector<BloqueCache>(vias + 1));
+    int entrada;
+    int offsetPalabra = log2(cantPalabras);
+    int offsetBit = log2(tamanoBloque);
+
+    cout << "Asociativa por Conjuntos: \n";
+    string BinAdrss,Etiqueta,Indice,HM,Word;
+    BinAdrss = "Binary Adress: ";
+    Etiqueta = "Etiquetas: ";
+    Indice = "Indice: ";
+    HM = "Hit/Miss: ";
+    Word = "Palabra: ";
+
+    while(cin >> entrada){
+        //Calculos
+        int etiqueta = entrada >> offsetBit;
+        int indice =  (entrada >> offsetPalabra) % tamanoBloque;
+        int palabra = entrada % cantPalabras;
+
+        BinAdrss += convertBinary(entrada) + ", ";
+        Etiqueta += convertBinary(etiqueta) + ", ";
+        Indice += convertBinary(indice) + ", ";
+        Word += convertBinary(palabra) + ", ";
+
+        bool encontrado = false;
+        int contador = listaCacheVias[indice][vias].getCont() + 1;
+        listaCacheVias[indice][vias].setCont(contador);
+        for (size_t i = 0; i < vias && !encontrado; i++)
+        {
+            if(listaCacheVias[indice][i].getEtiqueta() == etiqueta){
+                encontrado = true;
+                listaCacheVias[indice][i].setCont(contador);
+                HM += "H, ";
+            }
+        }
+
+        if(!encontrado){
+
+            int tmpCont = listaCacheVias[indice][0].getCont();
+            int tmpIndex = 0;
+            for (size_t i = 0; i < vias; i++)
+            {
+                if(listaCacheVias[indice][i].getCont() < tmpCont){
+                    tmpIndex = i;
+                    tmpCont = listaCacheVias[indice][i].getCont();
+                }
+            }
+            listaCacheVias[indice][tmpIndex].setEtiqueta(etiqueta);
+            listaCacheVias[indice][tmpIndex].setAcierto(false);
+            listaCacheVias[indice][tmpIndex].setPalabra(palabra);
+            listaCacheVias[indice][tmpIndex].setCont(contador);
+            HM += "M, ";    
+        }    
     };
     cout << BinAdrss << '\n' << Etiqueta << '\n' << Indice << '\n' << Word << '\n' << HM << endl;
 }
