@@ -3,7 +3,9 @@
 
 #include <string>
 #include <iostream>
+#include <cmath>
 #include "cache.hpp"
+
 using namespace std;
 
 class Memoria

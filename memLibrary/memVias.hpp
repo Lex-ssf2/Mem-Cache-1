@@ -50,15 +50,15 @@ void memVias::start(){
 void memVias::acierto(int index, int etiqueta, int palabra){
 
     bool encontrado = false;
-    int contador = listaCacheVias[index][viasMax].getCont() + 1;
-    listaCacheVias[index][viasMax].setCont(contador);
+    int contador = listaCacheVias[index][this->viasMax].getCont() + 1;
+    listaCacheVias[index][this->viasMax].setCont(contador);
 
     //Busqueda en las vias
-    for (size_t i = 0; i < viasMax && !encontrado; i++)
+    for (size_t i = 0; i < this->viasMax; i++)
     {
         if(listaCacheVias[index][i].getEtiqueta() == etiqueta){
-            encontrado = true;
             listaCacheVias[index][i].setCont(contador);
+            listaCacheVias[index][i].setAcierto(true);
             HM += "H, ";
             return;
         }
@@ -77,7 +77,7 @@ int memVias::getLRUindex(int index){
 
     int tmpCont = listaCacheVias[index][0].getCont();
     int tmpIndex = 0;
-    for (size_t i = 0; i < viasMax; i++)
+    for (size_t i = 0; i < this->viasMax; i++)
     {
         if(listaCacheVias[index][i].getCont() < tmpCont){
             tmpIndex = i;
