@@ -1,7 +1,8 @@
 #include <iostream>
 #include <cmath>
 #include <vector> 
-#include "cache.hpp"
+#include "memDirecta.hpp"
+#include "memVias.hpp"
 #include <bitset>
 #include <string>
   
@@ -16,12 +17,12 @@ void asociativaFull(int tamano);
 int main(int argc, const char* argv[])
 {
     int a;
-    asociativaFull(1);
-    cout << "sonic";
+    memVias memoria(1,1,3);
+    memoria.imprimir();
     return 0;
 }
 
-void correspondenciaDirecta(int cantPalabras,int tamanoBloque){
+/*void correspondenciaDirecta(int cantPalabras,int tamanoBloque){
     vector<BloqueCache> listaCache(cantPalabras * tamanoBloque, BloqueCache());
     int entrada;
     int offsetPalabra = log2(cantPalabras);
@@ -151,15 +152,4 @@ void asociativaFull(int tamano){
         }   
     };
     cout << BinAdrss << '\n' << Etiqueta << '\n' << Indice << '\n' << Word << '\n' << HM << endl;
-}
-
-string convertBinary(unsigned int num) {
-    string binary;
-    while (num > 0) {
-        int bit = num & 1; // Extrae el bit más a la derecha
-        binary = (bit == 0 ? '0' : '1') + binary; // Agrega '0' o '1' según el bit
-        num >>= 1; // Desplaza el valor decimal un bit hacia la derecha
-    }
-    binary = binary.size() <= 0 ? "0" : binary;
-    return binary;
-}
+}*/
