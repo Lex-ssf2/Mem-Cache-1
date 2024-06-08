@@ -16,12 +16,15 @@ public:
 
     void start();
     void acierto(int index);
+    void updateTable(int entrada);
 };
 
 memFullAsoc::memFullAsoc(int tam)
 {
     this->type = "Completamente Asociativa:";
     init(tam);
+    this->offsetBit = 0;
+    this->offsetPalabra = 0;
     listaCache.resize(tamanoBloque, BloqueCache());
     start();
 }
@@ -36,13 +39,11 @@ void memFullAsoc::start(){
     int entrada;
     while(cin >> entrada){
 
-        int etiqueta,indice,palabra;
-        spliceData(entrada,etiqueta,indice,palabra);
         if(listaCache.size() < convertBinary(entrada).size())
         {
             listaCache.resize(convertBinary(entrada).size() + 1);
         }
-        updateTable(entrada,etiqueta,indice,palabra);
+        updateTable(entrada);
         acierto(entrada);
     };
 }
@@ -59,6 +60,15 @@ void memFullAsoc::acierto(int index){
     listaCache[index].setAcierto(true);
     HM += "H, ";
     
+}
+
+void memFullAsoc::updateTable(int entrada){
+
+    string enBin = convertBinary(entrada);
+    this->BinAdrss.resize(this->BinAdrss.size() + enBin.size());
+    this->Etiqueta.resize(this->Etiqueta.size() + enBin.size());
+    this->BinAdrss += enBin + ", ";
+    this->Etiqueta += enBin + ", ";
 }
 
 #endif

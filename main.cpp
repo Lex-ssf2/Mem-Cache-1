@@ -8,7 +8,28 @@ using namespace std;
 
 int main(int argc, const char* argv[])
 {
-    memFullAsoc memoria(1);
-    memoria.imprimir();
+    int tipo,tamano,palabras,vias;
+    cin >> tipo;
+    switch (tipo)
+    {
+        case 2:{
+            cin >> tamano >> palabras >> vias;
+            memVias memoria(tamano,palabras,vias);
+            memoria.imprimir();
+            break;
+        }
+        case 3:{
+            cin >> tamano;
+            memFullAsoc memoriaA(tamano);
+            memoriaA.imprimir();
+            break;
+        }
+        default:{
+            cin >> tamano >> palabras;
+            memDirecta memoria(tamano,palabras);
+            memoria.imprimir();
+            break;
+        }
+    }
     return 0;
 }

@@ -64,7 +64,7 @@ void Memoria::acierto(int index){
 }
 
 void Memoria::imprimir(){
-    cout << type << "\n" << BinAdrss << '\n' << Etiqueta << '\n' << Indice << '\n' << Word << '\n' << HM << endl;
+    cout << type << "\n" << BinAdrss << endl << Etiqueta << '\n' << Indice << '\n' << Word << '\n' << HM << endl;
     this->restartText();
 }
 
@@ -81,10 +81,10 @@ string Memoria::convertBinary(unsigned int num){
 
 void Memoria::updateTable(int entrada, int etiqueta, int indice, int palabra){
 
-    BinAdrss += convertBinary(entrada) + ", ";
-    Etiqueta += convertBinary(etiqueta) + ", ";
-    Indice += convertBinary(indice) + ", ";
-    Word += convertBinary(palabra) + ", ";
+    this->BinAdrss += convertBinary(entrada) + ", ";
+    this->Etiqueta += convertBinary(etiqueta) + ", ";
+    this->Indice += convertBinary(indice) + ", ";
+    this->Word += convertBinary(palabra) + ", ";
 }
 
 void Memoria::spliceData(int entrada,int &etiqueta, int &indice, int &palabra){
